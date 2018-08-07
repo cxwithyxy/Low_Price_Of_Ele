@@ -1,39 +1,20 @@
-import puppeteer = require("puppeteer");
+import Ele_Crawler = require("./Ele_Crawler");
 import Config = require("./Config");
 import Live_Commandline = require("./utils/Live_Commandline");
 import sleep = require("sleep-promise");
 
-var main_Object = {
-    log: console.log
-};
-
 (async () => {
-    var page, browser, frame;
-    main_Object["Config"] = Config;
-    main_Object["browser"] = browser = await puppeteer.launch(Config.launch_Config());
-    main_Object["page"] = page = await browser.newPage();
-    page.setUserAgent(Config.UA_Config());
-    await page.goto('https://ele.me');
-    await sleep(2000);
-    await page.evaluate((STORE)=>{
-        localStorage.setItem("STORE", STORE);
-    }, Config.STORE_LS_Config());
-    await page.goto('https://ele.me');
-    await sleep(2000);
-    // await page.$eval('header > div > div', el => el.click());
-    // await page.$$eval('.wrapper span', (els) => {
-    //     els.map((el) => {
-    //         if(el.innerText.indexOf("选择城市") != -1){
-    //             el.click();
-    //         }
-    //     });
-    //     console.log(els.length);
-    // });
-    // await sleep(2000);
-    // var search_Input = await page.$('input');
-    // await search_Input.press("Enter");
-    // await search_Input.type("广州市",{delay: 300});
 
+    var ele_Crawler = new Ele_Crawler(
+        Config.launch_Config(), 
+        Config.UA_Config(),
+        Config.STORE_LS_Config()
+    );
+    await ele_Crawler.init();
+
+    Live_Commandline.getInstance().set("page", await ele_Crawler.new_Page());
+    Live_Commandline.getInstance().set("log", console.log);
 })();
 
-Live_Commandline.getInstance().run(main_Object, true);
+Live_Commandline.getInstance().start(true);
+
