@@ -19,6 +19,7 @@ class Live_Commandline extends Singleton {
     }
 
     public typed_Word = "";
+    public runtime_Object = {};
 
     constructor()
     {
@@ -28,6 +29,22 @@ class Live_Commandline extends Singleton {
         });
 
         
+    }
+
+    set(key, runtime_Object)
+    // set 设置一个object到运行环境中
+    // key object名称
+    // runtime_Object 对应的object
+    {
+        this.runtime_Object[key] = runtime_Object;
+        return this;
+    }
+
+    start(mutiline = false)
+    // start 启动, 会锁住进程
+    {
+        this.run(this.runtime_Object, mutiline);
+        return this;
     }
 
 
