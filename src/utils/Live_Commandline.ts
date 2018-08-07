@@ -46,7 +46,7 @@ class Live_Commandline extends Singleton {
             "(function (){"+
                 "return function (a){" +
                     "with(a){"+
-                        "(function (){" + 
+                        "(async function (){" + 
                             funS +
                         "})();" + 
                     "}"+
