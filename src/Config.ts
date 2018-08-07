@@ -15,7 +15,7 @@ class Config {
 
     static STORE_LS_Config()
     {
-        return '{"userId":0,"location":{"geohash":"ws0eegnkxc87","latitude":23.132495,"longitude":113.376836,"timestamp":1533633899,"locationName":"乐天大厦(西北门)"},"cityId":4,"districtId":5623}';
+        return '{"userId":0,"location":{"geohash":"ws0eegnkxc87","latitude":23.132495,"longitude":113.376836,"timestamp":' + (new Date()).getTime() + ',"locationName":"乐天大厦(西北门)"},"cityId":4,"districtId":5623}';
     }
 }
 export = Config;
