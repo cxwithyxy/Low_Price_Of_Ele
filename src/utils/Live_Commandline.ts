@@ -1,29 +1,59 @@
-class Live_Commandline {
+import Singleton = require("../base/Singleton");
+
+/**
+ * Live_Commandline
+ * 通过终端命令实时操作运行中的对象
+ */
+
+class Live_Commandline extends Singleton {
     
-    constructor(argument) {
+    static instance : Live_Commandline;
+
+    public static getInstance() : Live_Commandline
+    {
+        if(!this.instance)
+        {
+            this.instance = new Live_Commandline();
+        }
+        return this.instance;
+    }
+
+    constructor()
+    {
+        super();
         process.stdin.on('end', function() {
             process.stdout.write('end');
         });
 
-        function gets(cb){
-            process.stdin.setEncoding('utf8');
-            //输入进入流模式（flowing-mode，默认关闭，需用resume开启），注意开启后将无法read到数据
-            //见 https://github.com/nodejs/node-v0.x-archive/issues/5813
-            process.stdin.resume();
-            process.stdin.on('data', function(chunk) {
-                console.log('start!');
-                //去掉下一行可一直监听输入，即保持标准输入流为开启模式
-                // process.stdin.pause();
-                cb(chunk);
-            });
-            console.log('试着在键盘敲几个字然后按回车吧');
-        }
-
-        gets(function(reuslt){
-            console.log("["+reuslt+"]");
-            //process.stdin.emit('end'); //触发end事件
-        });
+        
     }
+
+
+    run(runtime_Object)
+    // runtime_Object 是一个对象，在命令行运行时，可对该对象进行操作。
+    {
+        process.stdin.setEncoding('utf8');
+        process.stdin.resume();
+        process.stdin.on('data', function(chunk) {
+            Live_Commandline.getInstance().runtime_In_Obj_JS_Code(runtime_Object, chunk);
+        });
+        console.log('Live_Commandline running');
+    }
+
+    runtime_In_Obj_JS_Code (inObj, funS)
+    {
+        return eval(
+            "(function (){"+
+                "return function (a){" +
+                    "with(a){"+
+                        "(function (){" + 
+                            funS +
+                        "})();" + 
+                    "}"+
+                "}"+
+            "})();"
+        )(inObj);
+    };
 }
 
 export = Live_Commandline;

@@ -1,7 +1,9 @@
 import puppeteer = require("puppeteer");
 import Config = require("./Config");
-import Config = require("./utils/Live_Commandline");
+import Live_Commandline = require("./utils/Live_Commandline");
 
+
+Live_Commandline.getInstance().run({a:2});
 // (async () => {
 //     console.log(Config.launch_Config());
 //     const browser = await puppeteer.launch(Config.launch_Config());
