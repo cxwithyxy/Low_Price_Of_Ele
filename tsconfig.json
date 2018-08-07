@@ -1,0 +1,16 @@
+{
+    "compilerOptions" : {
+        "outDir" : "bin",
+        "rootDir" : "src",
+        "moduleResolution" : "Node",
+        "module" : "CommonJS",
+        // "allowSyntheticDefaultImports" : false,
+        "target" : "ES2017",
+        // "lib" : [
+        //     "DOM",
+        //     "ES5",
+        //     "ScriptHost",
+        //     "ES2015"
+        // ]
+    }
+}

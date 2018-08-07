@@ -1,10 +1,14 @@
 {
   "name": "Low_Price_Of_Ele",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bin/index.js",
   "author": "cx",
   "license": "MIT",
   "dependencies": {
     "puppeteer": "^1.6.2"
+  },
+  "scripts": {
+    "dev": "node bin/index.js",
+    "start": "tsc && node bin/index.js"
   }
 }
