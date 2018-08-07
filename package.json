@@ -1,0 +1,10 @@
+{
+  "name": "Low_Price_Of_Ele",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "cx",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.6.2"
+  }
+}
