@@ -6,12 +6,12 @@
         "module" : "CommonJS",
         // "allowSyntheticDefaultImports" : false,
         // "target" : "ES2017",
-        "noImplicitUseStrict" : true
-        // "lib" : [
-        //     "DOM",
-        //     "ES5",
-        //     "ScriptHost",
-        //     "ES2015"
-        // ]
+        "noImplicitUseStrict" : true,
+        "lib" : [
+            "DOM",
+            "ES5",
+            "ScriptHost",
+            "ES2015"
+        ]
     }
 }
