@@ -13,8 +13,8 @@ import sleep = require("sleep-promise");
     await ele_Crawler.init();
     await ele_Crawler.new_Page();
     // Live_Commandline.getInstance().set("page", await ele_Crawler.new_Page());
-    // Live_Commandline.getInstance().set("log", console.log);
 })();
 
-// Live_Commandline.getInstance().start(true);
+Live_Commandline.getInstance().set("log", console.log);
+Live_Commandline.getInstance().start(true);
 

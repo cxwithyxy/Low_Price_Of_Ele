@@ -37,18 +37,22 @@ class Ele_Crawler{
             localStorage.setItem("STORE", STORE);
         }, this.location_Config);
         await page.goto('https://ele.me');
-        
         await page.waitForFunction(() => {
-            // 这里要检测真的地址加载出来才能继续往下跑
-            // divs.forEach((el) => {
-            //     if(el.innerText.indexOf("当前地址") != -1){
-            //         return true;
-            //     }
-            // });
-            return true;
-        },);
+            let all_Div = document.getElementsByTagName("div");
+            let all_Div_Length = all_Div.length;
+            for(let i = 0; i < all_Div_Length; i++){
+                let el = all_Div[i];
+                let attr = el.getAttribute("aria-label");
+                if(    attr
+                    && attr.indexOf("当前地址") != -1
+                    && attr.indexOf("正在定位") == -1
+                    && attr.indexOf("未知地址") == -1 ){
+                    return true;
+                }
 
-        console.log("new page");
+            }
+            return false;
+        });
         return page;
     }
 
