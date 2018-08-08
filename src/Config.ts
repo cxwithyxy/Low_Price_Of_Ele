@@ -3,6 +3,14 @@ import Singleton = require("./base/Singleton");
 
 class Config extends Singleton{
     
+    private conf_Storage_Path: String;
+
+    private config_Name = ".ele.conf";
+
+    private error_Desc = {
+        "SID": "请配置好 SID . SID 用于登录 ele"
+    }
+
     static instance : Config;
 
     public static getInstance() : Config
@@ -19,10 +27,16 @@ class Config extends Singleton{
     constructor()
     {
         super();
+
         this.conf_Driver = new Conf({
-            configName: ".ele.conf",
-            cwd: process.cwd()
+            configName: this.config_Name,
+            cwd: this.conf_Storage_Path = process.cwd()
         });
+    }
+
+    get_Path_Warn_Desc()
+    {
+        return "确认目录 " + this.conf_Storage_Path + " 下存在 " + this.config_Name + ".json 文件. 而且这个 json 文件不要有多余的逗号"
     }
 
     get_Conf_Driver()
@@ -32,7 +46,11 @@ class Config extends Singleton{
 
     get_Conf_Value(_key:String)
     {
-        let return_V = Config.getInstance().get_Conf_Driver().get(_key);
+        let return_V = this.get_Conf_Driver().get(_key);
+        let error_Desc = this.error_Desc[_key as any];
+        if( (typeof return_V == typeof undefined) && error_Desc ){
+            throw this.get_Path_Warn_Desc() + "\n" + error_Desc;
+        }
         return return_V;
     }
 
