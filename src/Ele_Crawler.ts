@@ -3,17 +3,19 @@ import sleep = require("sleep-promise");
 
 class Ele_Crawler{
 
-    public launch_Config;
-    public UA;
-    public location_Config;
+    public launch_Config:Object;
+    public UA:String;
+    public location_Config:String;
+    public cookies:Array<Object>;
 
     public browser;
 
-    constructor(launch_Config, UA, location_Config)
+    constructor(launch_Config, UA, location_Config, cookies)
     {
         this.launch_Config = launch_Config;
         this.UA = UA;
         this.location_Config = location_Config;
+        this.cookies = cookies;
     }
 
     async init()
@@ -25,6 +27,8 @@ class Ele_Crawler{
     async new_Page()
     {
         let page = await this.browser.newPage();
+        await page.setCookie(...this.cookies);
+
         await page.setUserAgent(this.UA);
         return await this.set_Ele_Location(page);
     }

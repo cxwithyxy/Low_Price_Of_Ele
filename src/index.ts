@@ -8,13 +8,15 @@ import sleep = require("sleep-promise");
     let ele_Crawler = new Ele_Crawler(
         Config.launch_Config(), 
         Config.UA_Config(),
-        Config.STORE_LS_Config()
+        Config.STORE_LS_Config(),
+        [
+            Config.login_Cookie_Config()
+        ]
     );
     await ele_Crawler.init();
-    await ele_Crawler.new_Page();
-    // Live_Commandline.getInstance().set("page", await ele_Crawler.new_Page());
+    let page = await ele_Crawler.new_Page();
+    Live_Commandline.getInstance().set("page", page);
 })();
 
 Live_Commandline.getInstance().set("log", console.log);
 Live_Commandline.getInstance().start(true);
-
