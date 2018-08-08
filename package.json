@@ -5,6 +5,7 @@
   "author": "cx",
   "license": "MIT",
   "dependencies": {
+    "conf": "^2.0.0",
     "puppeteer": "^1.6.2",
     "sleep-promise": "^8.0.1"
   },
